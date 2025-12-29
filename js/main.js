@@ -1,6 +1,16 @@
-import { getPictures } from './data.js';
-import { renderGallery } from './gallery.js';
+import { renderThumbnails } from './thumbnail.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
+import { setUserFormSubmit, closeForm } from './form.js';
 
-const pictures = getPictures();
+// Загружаем данные
+getData(
+  (photos) => {
+    renderThumbnails(photos);
+  },
+  () => {
+    showAlert('Не удалось загрузить данные. Попробуйте обновить страницу');
+  }
+);
 
-renderGallery(pictures);
+setUserFormSubmit(closeForm);
