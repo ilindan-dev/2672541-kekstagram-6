@@ -13,7 +13,10 @@ const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
+
+  alertContainer.classList.add('data-error');
+
+  alertContainer.style.zIndex = '10000';
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '0';
   alertContainer.style.top = '0';
@@ -32,13 +35,12 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
-
   return (...rest) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    timeoutId = setTimeout(() => callback(...rest), timeoutDelay);
   };
-}
+};
 
 export { getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert, debounce};

@@ -27,19 +27,22 @@ const getFilteredPictures = () => {
 
 const setOnFilterClick = (cb) => {
   filterElement.addEventListener('click', (evt) => {
-    if (!evt.target.classList.contains('img-filters__button')) {
+
+    const clickedButton = evt.target.closest('.img-filters__button');
+
+    if (!clickedButton) {
       return;
     }
 
-    const clickedButton = evt.target;
-    if (clickedButton.id === currentFilter) {
-      return;
+    const activeFilter = filterElement.querySelector('.img-filters__button--active');
+    if (activeFilter) {
+      activeFilter.classList.remove('img-filters__button--active');
     }
 
-    filterElement.querySelector('.img-filters__button--active')
-      .classList.remove('img-filters__button--active');
     clickedButton.classList.add('img-filters__button--active');
+
     currentFilter = clickedButton.id;
+
     cb(getFilteredPictures());
   });
 };
@@ -47,6 +50,17 @@ const setOnFilterClick = (cb) => {
 const initFilter = (loadedPictures, cb) => {
   filterElement.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
+  currentFilter = Filter.DEFAULT;
+
+  const defaultBtn = filterElement.querySelector(`#${Filter.DEFAULT}`);
+  if (defaultBtn) {
+    const activeFilter = filterElement.querySelector('.img-filters__button--active');
+    if (activeFilter) {
+      activeFilter.classList.remove('img-filters__button--active');
+    }
+    defaultBtn.classList.add('img-filters__button--active');
+  }
+
   setOnFilterClick(cb);
 };
 
