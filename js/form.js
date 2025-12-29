@@ -1,4 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effect.js';
 
 const MAX_HASHTAG_COUNT = 5;
 const MAX_COMMENT_LENGTH = 140;
@@ -109,6 +111,8 @@ function showModal() {
 function hideModal() {
   form.reset();
   pristine.reset();
+  resetScale();
+  resetEffects();
 
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
