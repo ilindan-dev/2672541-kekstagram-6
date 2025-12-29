@@ -153,7 +153,7 @@ const setUserFormSubmit = (onSuccess) => {
       blockSubmitButton();
       sendData(
         () => {
-          onSuccess(); // Это вызовет closeForm
+          onSuccess();
           showSuccessMessage();
           unblockSubmitButton();
         },
@@ -167,4 +167,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export { setUserFormSubmit, hideModal as closeForm };
+export { setUserFormSubmit, hideModal };
