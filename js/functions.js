@@ -45,3 +45,24 @@ extractNumber('а я томат');           // NaN
 extractNumber(2023); // 2023
 extractNumber(-1);   // 1
 extractNumber(1.5);  // 15
+
+
+const getTimeInMinutes = (timeString) => {
+  const [hours, minutes] = timeString.split(':');
+  return Number(hours) * 60 + Number(minutes);
+};
+
+const isMeetingValid = (workStart, workEnd, meetingStart, meetingDuration) => {
+  const workStartMinutes = getTimeInMinutes(workStart);
+  const workEndMinutes = getTimeInMinutes(workEnd);
+  const meetingStartMinutes = getTimeInMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return meetingStartMinutes >= workStartMinutes && meetingEndMinutes <= workEndMinutes;
+};
+
+isMeetingValid('08:00', '17:30', '14:00', 90); // true
+isMeetingValid('8:0', '10:0', '8:0', 120);     // true
+isMeetingValid('08:00', '14:30', '14:00', 90); // false
+isMeetingValid('14:00', '17:30', '08:0', 90);  // false
+isMeetingValid('8:00', '17:30', '08:00', 900); // false
